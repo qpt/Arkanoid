@@ -13,18 +13,50 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsPixmapItem>
 #include <QMenuBar>
+#include <QVariant>
 #include <QMenu>
 #include <QAction>
 #include "dialog.h"
 #include "settings.h"
+#include "cube.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
+class Pixmap : public QObject, public QGraphicsPixmapItem, public QVariant {
+    Q_OBJECT
+    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
+    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
+    Q_PROPERTY(qreal rotation READ rotation WRITE setRotation)
+
+public:
+    Pixmap(const QPixmap &pix): QObject(), QGraphicsPixmapItem(pix) {
+        setCacheMode(DeviceCoordinateCache);
+    }
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent * ) Q_DECL_OVERRIDE {
+        emit clicked();
+    }
+Q_SIGNALS:
+    void clicked();
+};
+
+class View : public QGraphicsView {
+public:
+    View(QGraphicsScene *scene) : QGraphicsView(scene) { }
+protected:
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE {
+        QGraphicsView::resizeEvent(event);
+        fitInView(sceneRect(), Qt::KeepAspectRatio);
+    }
+};
+
+
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -33,6 +65,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    QGraphicsScene *m_scene;
+
     QMenu *m_file,*m_help;
     QAction *m_newGame,*m_settings,*m_exit,*m_about;
     Dialog *m_aboutDlg;

@@ -25,9 +25,7 @@ Settings::Settings(QWidget *parent) :
     m_hlay0->addWidget(m_discard);
     m_vlay = new QVBoxLayout;
     m_vlay->addWidget(m_info);
-    //m_vlay->addWidget(m_nameField);
     m_vlay->addWidget(m_info2);
-    //m_vlay->addWidget(m_cpunameField);
     m_vlay->addLayout(m_hlay0);
     m_hlay = new QHBoxLayout;
     m_hlay->addLayout(m_vlay);
