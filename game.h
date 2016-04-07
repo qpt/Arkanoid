@@ -20,8 +20,8 @@
 #include <QGraphicsPixmapItem>
 #include <QVariant>
 
-const int cubesWidth = 10;
-const int cubesHeight = 35;
+const int cubesWidth = 25;
+const int cubesHeight = 50;
 
 class Pixmap : public QObject, public QGraphicsPixmapItem,public QVariant {
     Q_OBJECT

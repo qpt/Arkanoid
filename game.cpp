@@ -27,10 +27,11 @@ QGraphicsScene *GameEngine::getScene() const
 void GameEngine::startNewGame()
 {
     for(int i=0;i<23;i++) {
-        new Cube(true,Qt::red,2,0+i*cubesHeight,0,cubesHeight,cubesWidth);
-        new Cube(true,Qt::blue,2,0+i*cubesHeight,cubesWidth,cubesHeight,cubesWidth);
-        new Cube(true,Qt::green,2,0+i*cubesHeight,cubesWidth*2,cubesHeight,cubesWidth);
-        new Cube(true,Qt::yellow,2,0+i*cubesHeight,cubesWidth*3,cubesHeight,cubesWidth);
-        new Cube(true,Qt::gray,2,0+i*cubesHeight,cubesWidth*4,cubesHeight,cubesWidth);
+        new Cube(false,Qt::gray,2,0+i*cubesHeight,cubesWidth*0,cubesHeight,cubesWidth);
+        new Cube(true,Qt::red,2,0+i*cubesHeight,cubesWidth*1,cubesHeight,cubesWidth);
+        new Cube(true,Qt::yellow,2,0+i*cubesHeight,cubesWidth*2,cubesHeight,cubesWidth);
+        new Cube(true,Qt::blue,2,0+i*cubesHeight,cubesWidth*3,cubesHeight,cubesWidth);
+        new Cube(true,Qt::cyan,2,0+i*cubesHeight,cubesWidth*4,cubesHeight,cubesWidth);
+        new Cube(true,Qt::green,2,0+i*cubesHeight,cubesWidth*5,cubesHeight,cubesWidth);
     }
 }

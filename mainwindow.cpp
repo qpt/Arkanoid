@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     brght = brght.scaled(800,25, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    ui->graphicsView->setBackgroundBrush(QBrush(Qt::black));
+    ui->graphicsView->setBackgroundBrush(bgPix);
     ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
     ui->graphicsView->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
