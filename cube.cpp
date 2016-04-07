@@ -11,7 +11,16 @@
 
 #include "cube.h"
 
-AbstractCube *AbstractCube::makeCube()
+Cube::Cube(bool brk,Qt::GlobalColor clr,int hlth,int posx, int posy, int w, int h):
+    m_breakability(brk), m_health(hlth)
 {
-    return 0;
+    setRect(0,0,w,h);
+    setPos(posx,posy);
+    setBrush(QBrush(clr));
+    GameEngine::instance()->getScene()->addItem(this);
+}
+
+Cube::~Cube()
+{
+    GameEngine::instance()->getScene()->removeItem(this);
 }

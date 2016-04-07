@@ -11,9 +11,26 @@
 
 #include "game.h"
 
-GameImplementer* GameImplementer::s_instance;
 
-void GameImplementer::setScene(QGraphicsScene *p_scene)
+GameEngine* GameEngine::s_instance;
+
+void GameEngine::setScene(QGraphicsScene *p_scene)
 {
     m_scene = p_scene;
+}
+
+QGraphicsScene *GameEngine::getScene() const
+{
+    return m_scene;
+}
+
+void GameEngine::startNewGame()
+{
+    for(int i=0;i<23;i++) {
+        new Cube(true,Qt::red,2,0+i*cubesHeight,0,cubesHeight,cubesWidth);
+        new Cube(true,Qt::blue,2,0+i*cubesHeight,cubesWidth,cubesHeight,cubesWidth);
+        new Cube(true,Qt::green,2,0+i*cubesHeight,cubesWidth*2,cubesHeight,cubesWidth);
+        new Cube(true,Qt::yellow,2,0+i*cubesHeight,cubesWidth*3,cubesHeight,cubesWidth);
+        new Cube(true,Qt::gray,2,0+i*cubesHeight,cubesWidth*4,cubesHeight,cubesWidth);
+    }
 }

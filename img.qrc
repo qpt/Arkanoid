@@ -6,5 +6,6 @@
         <file>img/border_top.png</file>
         <file>img/hexagon_pattern.png</file>
         <file>img/racket.png</file>
+        <file>icon.ico</file>
     </qresource>
 </RCC>

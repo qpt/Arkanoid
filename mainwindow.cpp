@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     bgPix = bgPix.scaled(800,600, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     m_scene = new QGraphicsScene(0,0,ui->graphicsView->width(),ui->graphicsView->height());
     ui->graphicsView->setScene(m_scene);
-    GameImplementer::instance()->setScene(m_scene);
+    GameEngine::instance()->setScene(m_scene);
 
     QPixmap blft(":/img/border_left.png");
     QPixmap btop(":/img/border_top.png");
@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     brght = brght.scaled(800,25, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    ui->graphicsView->setBackgroundBrush(bgPix);
+    ui->graphicsView->setBackgroundBrush(QBrush(Qt::black));
     ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
     ui->graphicsView->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::startNewGame() {
-
+    GameEngine::instance()->startNewGame();
 }
 
 void MainWindow::openSettings()

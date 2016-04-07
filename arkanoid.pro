@@ -15,12 +15,23 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     settings.cpp \
-    dialog.cpp
+    dialog.cpp \
+    cube.cpp \
+    game.cpp \
+    ball.cpp \
+    racket.cpp
 
 HEADERS  += mainwindow.h \
     settings.h \
-    dialog.h
+    dialog.h \
+    cube.h \
+    game.h \
+    ball.h \
+    racket.h
 
 FORMS    += mainwindow.ui \
     dialog.ui \
     settings.ui
+
+RESOURCES += \
+    img.qrc

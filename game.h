@@ -12,25 +12,47 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "cube.h"
+#include "ball.h"
+#include "racket.h"
+
 #include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+#include <QVariant>
 
-class GameImplementer {
+const int cubesWidth = 10;
+const int cubesHeight = 35;
+
+class Pixmap : public QObject, public QGraphicsPixmapItem,public QVariant {
+    Q_OBJECT
+    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
+    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
+    Q_PROPERTY(qreal rotation READ rotation WRITE setRotation)
 public:
-    void setScene(QGraphicsScene*);
+    Pixmap(const QPixmap &pix): QObject(), QGraphicsPixmapItem(pix) {
+        setCacheMode(DeviceCoordinateCache);
+    }
+};
 
-    static GameImplementer *instance()
+class GameEngine {
+public:
+    void setScene(QGraphicsScene* );
+    QGraphicsScene* getScene() const;
+    void startNewGame();
+
+    static GameEngine *instance()
     {
         if (!s_instance)
         {
-          s_instance = new GameImplementer;
+          s_instance = new GameEngine;
         }
         return s_instance;
     }
 private:
     QGraphicsScene *m_scene;
 
-    static GameImplementer *s_instance;
-    GameImplementer(){}
+    static GameEngine *s_instance;
+    GameEngine(){}
 };
 
 #endif // GAME_H

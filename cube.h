@@ -13,43 +13,19 @@
 #define CUBE_H
 
 #include <QRect>
+#include <QGraphicsRectItem>
+#include "game.h"
 
-enum Cubes { Red, Blue, Green, Yellow, Unbreakable };
-
-class AbstractCube {
+class Cube: public QObject, public QGraphicsRectItem {
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 public:
-    virtual ~AbstractCube(){}
-    static AbstractCube *makeCube();
-    virtual void draw(QRect& coord);
-
+    Cube(bool brk,Qt::GlobalColor clr,int hlth,int posx, int posy, int w, int h);
+    ~Cube();
 private:
-    bool breakable;
-    int color;
-};
-
-class RedCube: public AbstractCube {
-    RedCube(){}
-    ~RedCube(){}
-};
-
-class GreenCube: public AbstractCube {
-    GreenCube(){}
-    ~GreenCube(){}
-};
-
-class BlueCube: public AbstractCube {
-    BlueCube(){}
-    ~BlueCube(){}
-};
-
-class YellowCube: public AbstractCube {
-    YellowCube(){}
-    ~YellowCube(){}
-};
-
-class UnbreakableCube: public AbstractCube {
-    UnbreakableCube(){}
-    ~UnbreakableCube(){}
+    QRect *m_rect;
+    bool m_breakability;
+    int m_health;
 };
 
 class CubeFactory
