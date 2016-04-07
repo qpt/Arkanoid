@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     bgPix = bgPix.scaled(800,600, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     m_scene = new QGraphicsScene(0,0,ui->graphicsView->width(),ui->graphicsView->height());
     ui->graphicsView->setScene(m_scene);
+    GameImplementer::instance()->setScene(m_scene);
 
     QPixmap blft(":/img/border_left.png");
     QPixmap btop(":/img/border_top.png");

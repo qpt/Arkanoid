@@ -22,6 +22,7 @@
 #include <QAction>
 #include "dialog.h"
 #include "settings.h"
+#include "game.h"
 #include "cube.h"
 
 namespace Ui {

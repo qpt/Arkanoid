@@ -20,11 +20,6 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-namespace Game {
-    extern QString* g_playerName;
-    extern QString* g_cpuplayerName;
-}
-
 namespace Ui {
 class Settings;
 }
