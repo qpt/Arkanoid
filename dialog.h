@@ -15,6 +15,8 @@
 #include <QDialog>
 #include <QLabel>
 #include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QPixmap>
 
 namespace Ui {
@@ -31,9 +33,10 @@ public:
 
 private:
     Ui::Dialog *m_ui;
-    QLabel *m_pic;
-    QLabel *m_info;
-    QPushButton *m_cool;
+    QLabel *m_pic,*m_info;
+    QPushButton *m_oKay,*m_cancel;
+    QHBoxLayout *m_hlay,*m_hlay0;
+    QVBoxLayout *m_vlay,*m_vlay2;
 };
 
 #endif // DIALOG_H

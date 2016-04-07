@@ -12,11 +12,18 @@
 #ifndef RACKET_H
 #define RACKET_H
 
+#include <QGraphicsRectItem>
+#include <QKeyEvent>
+#include "game.h"
 
-class Racket
-{
+class Racket: public QObject, public QGraphicsRectItem {
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 public:
-    Racket();
+    Racket(int posx, int posy);
+    ~Racket();
+
+    void keyPressEvent(QKeyEvent * event);
 };
 
 #endif // RACKET_H

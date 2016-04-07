@@ -12,27 +12,20 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "cube.h"
-#include "ball.h"
-#include "racket.h"
-
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QVariant>
 
-const int cubesWidth = 25;
-const int cubesHeight = 50;
+#include "cube.h"
+#include "ball.h"
+#include "racket.h"
+#include "lives.h"
+#include "score.h"
 
-class Pixmap : public QObject, public QGraphicsPixmapItem,public QVariant {
-    Q_OBJECT
-    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
-    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
-    Q_PROPERTY(qreal rotation READ rotation WRITE setRotation)
-public:
-    Pixmap(const QPixmap &pix): QObject(), QGraphicsPixmapItem(pix) {
-        setCacheMode(DeviceCoordinateCache);
-    }
-};
+const int c_wstart = 6*2;
+const int c_hstart = 60+7*2+40;
+const int cubesWidth = 16;
+const int cubesHeight = 32;
 
 class GameEngine {
 public:

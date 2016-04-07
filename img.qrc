@@ -7,5 +7,6 @@
         <file>img/hexagon_pattern.png</file>
         <file>img/racket.png</file>
         <file>icon.ico</file>
+        <file>img/Arkanoid_arcadeflyer.png</file>
     </qresource>
 </RCC>

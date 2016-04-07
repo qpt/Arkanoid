@@ -12,7 +12,6 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include <QRect>
 #include <QGraphicsRectItem>
 #include "game.h"
 

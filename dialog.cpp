@@ -14,24 +14,29 @@
 
 
 Dialog::Dialog(QWidget *parent):QDialog(parent),m_ui(new Ui::Dialog) {
+    QPixmap q(":/img/Arkanoid_arcadeflyer.png");
     m_pic = new QLabel(this);
-    QPixmap q(":/img/about.jpg");
+    m_info = new QLabel("Created with Qt Framework\n\n (c) David Hovhannisyan");
     m_pic->setPixmap(q);
-    m_pic->show();
-
-    m_info = new QLabel(tr("This program is written in Qt under GPL\n Copyright (c) David Hovhannisyan 2016"),this);
-    m_info->setGeometry(0,75,360,100);
-    m_info->setStyleSheet(tr("QLabel { font-family: Tahoma; font-style: bold,oblique; font-size: 20px;  }"));
-    m_info->show();
-
-    m_cool = new QPushButton(tr("&Cool"),this);
-    m_cool->setGeometry(365,110,30,30);
-    m_cool->show();
-
-    connect(m_cool,SIGNAL(clicked()),SLOT(close()));
-
-    setWindowFlags(Qt::SplashScreen);
+    m_oKay = new QPushButton("Ok");
+    m_hlay0 = new QHBoxLayout;
+    m_hlay0->addWidget(m_oKay);
+    m_hlay0->setAlignment(m_oKay,Qt::AlignCenter);
+    m_vlay = new QVBoxLayout;
+    m_vlay->addWidget(m_info);
+    m_vlay->setAlignment(m_info,Qt::AlignCenter);
+    m_vlay->addLayout(m_hlay0);
+    m_vlay2 = new QVBoxLayout;
+    m_vlay2->addWidget(m_pic);
+    m_hlay = new QHBoxLayout;
+    m_hlay->addLayout(m_vlay2);
+    m_hlay->addLayout(m_vlay);
+    setLayout(m_hlay);
+    connect(m_oKay,SIGNAL(clicked(bool)),this,SLOT(close()));
     m_ui->setupUi(this);
+    setFixedSize(size());
+    QIcon ico(tr(":/icon.ico"));
+    setWindowIcon(ico);
 }
 
 Dialog::~Dialog() {

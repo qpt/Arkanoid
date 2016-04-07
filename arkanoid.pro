@@ -14,24 +14,27 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    settings.cpp \
     dialog.cpp \
     cube.cpp \
     game.cpp \
     ball.cpp \
-    racket.cpp
+    racket.cpp \
+    score.cpp \
+    lives.cpp
 
 HEADERS  += mainwindow.h \
-    settings.h \
     dialog.h \
     cube.h \
     game.h \
     ball.h \
-    racket.h
+    racket.h \
+    score.h \
+    lives.h
 
 FORMS    += mainwindow.ui \
-    dialog.ui \
-    settings.ui
+    dialog.ui
 
 RESOURCES += \
     img.qrc
+
+DISTFILES +=
