@@ -31,7 +31,7 @@ void Racket::keyPressEvent(QKeyEvent *event)
         if(pos().x() > 10)
            setPos(x()-10,y());
     if(event->key() == Qt::Key_Right)
-        if(pos().x() < 800-10-rect().width())
+        if(pos().x() < 440-10-rect().width())
              setPos(x()+10,y());
     if(event->key() == Qt::Key_Space)
     {

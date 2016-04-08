@@ -12,11 +12,15 @@
 #ifndef BALL_H
 #define BALL_H
 
+#include <QGraphicsRectItem>
+#include "game.h"
 
-class Ball
-{
+class Ball: public QObject, public QGraphicsRectItem {
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 public:
-    Ball();
+    Ball(int posx, int posy);
+    ~Ball();
 };
 
 #endif // BALL_H

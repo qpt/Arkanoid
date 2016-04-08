@@ -74,7 +74,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::startNewGame()
 {
+    static int cnt = 0;
+    if(cnt)
+        GameEngine::instance()->cleanup();
     GameEngine::instance()->startNewGame();
+    ++cnt;
 }
 
 void MainWindow::openAbout()

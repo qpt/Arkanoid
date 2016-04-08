@@ -22,16 +22,18 @@
 #include "lives.h"
 #include "score.h"
 
-const int c_wstart = 6*2;
-const int c_hstart = 60+7*2+40;
-const int cubesWidth = 16;
-const int cubesHeight = 32;
+enum blocks { empty, green, cyan, blue, yellow, red, ub };
+
+class Ball;
+class Racket;
+class CubeMatrix;
 
 class GameEngine {
 public:
     void setScene(QGraphicsScene* );
     QGraphicsScene* getScene() const;
     void startNewGame();
+    void cleanup();
 
     static GameEngine *instance()
     {
@@ -43,6 +45,9 @@ public:
     }
 private:
     QGraphicsScene *m_scene;
+    Ball *ball;
+    Racket *player;
+    CubeMatrix *mtx;
 
     static GameEngine *s_instance;
     GameEngine(){}

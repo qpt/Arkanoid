@@ -11,8 +11,16 @@
 
 #include "ball.h"
 
-Ball::Ball()
+Ball::Ball(int posx, int posy)
 {
-
+    QPixmap pix(":/img/ball.png");
+    setBrush(pix);
+    setRect(0,0,pix.width(),pix.height());
+    setPos(posx,posy);
+    GameEngine::instance()->getScene()->addItem(this);
 }
 
+Ball::~Ball()
+{
+    GameEngine::instance()->getScene()->removeItem(this);
+}

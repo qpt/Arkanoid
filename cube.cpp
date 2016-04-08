@@ -24,3 +24,45 @@ Cube::~Cube()
 {
     GameEngine::instance()->getScene()->removeItem(this);
 }
+
+
+void CubeMatrix::fillLevel(int M[15][13],int n,int m)
+{
+    for(int i = 0; i < n; ++i)
+    {
+        for(int j = 0; j < m; ++j)
+        {
+            switch(M[i][j])
+            {
+            case empty:
+                break;
+            case green:
+                cubes->push(new GreenCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                break;
+            case cyan:
+                cubes->push(new CyanCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                break;
+            case blue:
+                cubes->push(new BlueCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                break;
+            case yellow:
+                cubes->push(new YellowCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                break;
+            case red:
+                cubes->push(new RedCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                break;
+            case ub:
+                cubes->push(new UnbreakableCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                break;
+            }
+        }
+    }
+}
+
+CubeMatrix::~CubeMatrix()
+{
+    while(cubes->empty()) {
+        delete cubes->top();
+        cubes->pop();
+    }
+}

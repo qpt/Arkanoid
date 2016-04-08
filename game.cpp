@@ -11,8 +11,44 @@
 
 #include "game.h"
 
-
 GameEngine* GameEngine::s_instance;
+
+int lvl_0[15][13] = {
+    {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub     },
+    {   green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green  },
+    {   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan    },
+    {   blue,   blue,   blue,   blue,   blue,   blue,   blue,   blue,   blue,   blue,   blue,   blue,   blue    },
+    {   yellow, yellow, yellow, yellow, yellow, yellow, yellow, yellow, yellow, yellow, yellow, yellow, yellow  },
+    {   red,    red,    red,    red,    red,    red,    red,    red,    red,    red,    red,    red,    red     },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty   }
+};
+
+
+int lvl_1[15][13] = {
+    {   empty,  empty,  empty,  ub,     ub,     empty,  empty,  empty,  ub,     ub,     empty,  empty,  empty   },
+    {   empty,  empty,  ub,     yellow, yellow, ub,     empty,  ub,     red,    red,    ub,     empty,  empty   },
+    {   empty,  ub,     yellow, yellow, yellow, yellow, ub,     red,    red,    red,    red,    ub,     empty   },
+    {   empty,  ub,     yellow, yellow, yellow, yellow, yellow, red,    red,    red,    red,    ub,     empty   },
+    {   ub,     yellow, yellow, yellow, yellow, yellow, red,    red,    red,    red,    red,    red,    ub      },
+    {   ub,     yellow, yellow, yellow, yellow, yellow, yellow, red,    red,    red,    red,    red,    ub      },
+    {   ub,     yellow, yellow, yellow, yellow, yellow, red,    red,    red,    red,    red,    red,    ub      },
+    {   cyan,   yellow, yellow, yellow, yellow, yellow, yellow, red,    red,    red,    red,    red,    cyan    },
+    {   empty,  cyan,   yellow, yellow, yellow, yellow, red,    red,    red,    red,    red,    cyan,   empty   },
+    {   empty,  cyan,   yellow, yellow, yellow, yellow, yellow, red,    red,    red,    red,    cyan,   empty   },
+    {   empty,  empty,  cyan,   yellow, yellow, yellow, red,    red,    red,    red,    cyan,   empty,  empty   },
+    {   empty,  empty,  empty,  cyan,   yellow, yellow, yellow, red,    red,    cyan,   empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  cyan,   yellow, red,    red,    cyan,   empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  cyan,   yellow, cyan,   empty,  empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  empty,  empty,  cyan,  empty,   empty,  empty,  empty,  empty,  empty   }
+};
 
 void GameEngine::setScene(QGraphicsScene *p_scene)
 {
@@ -26,15 +62,21 @@ QGraphicsScene *GameEngine::getScene() const
 
 void GameEngine::startNewGame()
 {
-    for(int i=0;i<13;i++) {
-        new Cube(false,Qt::gray,2,c_wstart+i*cubesHeight,c_hstart+cubesWidth*0,cubesHeight,cubesWidth);
-        new Cube(true,Qt::red,2,c_wstart+i*cubesHeight,c_hstart+cubesWidth*1,cubesHeight,cubesWidth);
-        new Cube(true,Qt::yellow,2,c_wstart+i*cubesHeight,c_hstart+cubesWidth*2,cubesHeight,cubesWidth);
-        new Cube(true,Qt::blue,2,c_wstart+i*cubesHeight,c_hstart+cubesWidth*3,cubesHeight,cubesWidth);
-        new Cube(true,Qt::cyan,2,c_wstart+i*cubesHeight,c_hstart+cubesWidth*4,cubesHeight,cubesWidth);
-        new Cube(true,Qt::green,2,c_wstart+i*cubesHeight,c_hstart+cubesWidth*5,cubesHeight,cubesWidth);
-    }
-    Racket *player = new Racket(100,525);
+    ball = new Ball(100,400);
+    player = new Racket(100,525);
+    mtx = new CubeMatrix;
+    mtx->fillLevel(lvl_1);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
+}
+
+void GameEngine::cleanup()
+{
+    delete ball;
+    delete player;
+    delete mtx;
+
+    ball = NULL;
+    player = NULL;
+    mtx = NULL;
 }
