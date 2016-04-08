@@ -31,6 +31,6 @@ void Racket::keyPressEvent(QKeyEvent *event)
         if(pos().x() > 12)
            setPos(x()-10,y());
     if(event->key() == Qt::Key_Right)
-        if(pos().x() < 425 - 15)
+        if(pos().x() < 440 - 12 - sceneBoundingRect().width())
             setPos(x()+10,y());
 }

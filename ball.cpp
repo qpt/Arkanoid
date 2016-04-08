@@ -19,9 +19,9 @@ Ball::Ball(int posx, int posy, QGraphicsItem *parent):QObject(),QGraphicsPixmapI
     setPixmap(pix);
     setPos(posx,posy);
     GameEngine::instance()->getScene()->addItem(this);
-    timer = new QTimer;
-    connect(timer,SIGNAL(timeout()),this,SLOT(move()));
-    timer->start(5);
+    m_timer = new QTimer;
+    connect(m_timer,SIGNAL(timeout()),this,SLOT(move()));
+    m_timer->start(5);
 }
 
 Ball::~Ball()
@@ -34,9 +34,10 @@ void Ball::move()
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for(int i = 0, n = colliding_items.size(); i < n; ++i )
     {
-       if(typeid(*(colliding_items[i])) == typeid(Cube))
+       if(typeid(*(colliding_items[i])) == typeid(UnbreakableCube))
        {
-            qDebug(" y0000 ");
+            setPos(x(),y()+1);
+            break;
        }
     }
     setPos(x(),y()-1);

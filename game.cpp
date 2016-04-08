@@ -83,7 +83,7 @@ void GameEngine::startNewGame()
     player = new Racket(100,520);
     mtx = new CubeMatrix;
     ball = new Ball(100,400);
-    mtx->fillLevel(lvl_2);
+    mtx->fillLevel(lvl_1);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
 }

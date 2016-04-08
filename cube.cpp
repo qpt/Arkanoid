@@ -61,8 +61,10 @@ void CubeMatrix::fillLevel(unsigned char M[15][13],int n,int m)
 
 CubeMatrix::~CubeMatrix()
 {
-    while(cubes->empty()) {
+    while(!cubes->empty()) {
         delete cubes->top();
         cubes->pop();
     }
+    delete cubes;
+    cubes = NULL;
 }

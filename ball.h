@@ -25,7 +25,7 @@ public:
     Ball(int posx, int posy,QGraphicsItem* parent = 0);
     ~Ball();
 private:
-    QTimer *timer;
+    QTimer *m_timer;
 public slots:
     void move();
 };

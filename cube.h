@@ -18,7 +18,6 @@ const int c_wstart = 6*2;
 const int c_hstart = 60+7*2+40;
 
 #include <QGraphicsRectItem>
-#include <QGraphicsPixmapItem>
 #include <QStack>
 #include "game.h"
 

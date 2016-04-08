@@ -35,6 +35,7 @@ FORMS    += mainwindow.ui \
     dialog.ui
 
 RESOURCES += \
-    img.qrc
+    img.qrc \
+    sounds.qrc
 
 DISTFILES +=

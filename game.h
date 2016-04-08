@@ -14,7 +14,6 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
-#include <QVariant>
 
 #include "cube.h"
 #include "ball.h"
@@ -28,7 +27,7 @@ class Ball;
 class Racket;
 class CubeMatrix;
 
-class Pixmap : public QObject, public QGraphicsPixmapItem,public QVariant {
+class Pixmap : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
     Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
