@@ -13,7 +13,7 @@
 
 GameEngine* GameEngine::s_instance;
 
-int lvl_0[15][13] = {
+unsigned char lvl_1[15][13] = {
     {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub     },
     {   green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green  },
     {   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan    },
@@ -32,7 +32,7 @@ int lvl_0[15][13] = {
 };
 
 
-int lvl_1[15][13] = {
+unsigned char lvl_2[15][13] = {
     {   empty,  empty,  empty,  ub,     ub,     empty,  empty,  empty,  ub,     ub,     empty,  empty,  empty   },
     {   empty,  empty,  ub,     yellow, yellow, ub,     empty,  ub,     red,    red,    ub,     empty,  empty   },
     {   empty,  ub,     yellow, yellow, yellow, yellow, ub,     red,    red,    red,    red,    ub,     empty   },
@@ -50,6 +50,24 @@ int lvl_1[15][13] = {
     {   empty,  empty,  empty,  empty,  empty,  empty,  cyan,  empty,   empty,  empty,  empty,  empty,  empty   }
 };
 
+unsigned char lvl_3[15][13] = {
+    {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
+    {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  empty,  empty   },
+    {   empty,  empty,  green,  green,  red,    green,  green,  green,  red,    green,  green,  empty,  empty   },
+    {   empty,  empty,  green,  green,  red,    green,  green,  green,  red,    green,  green,  empty,  empty   },
+    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
+    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
+    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
+    {   empty,  green,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  green,  empty   },
+    {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
+    {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
+    {   empty,  empty,  empty,  empty,  green,  green,  empty,  green,  green,  empty,  empty,  empty,  empty   }
+};
+
 void GameEngine::setScene(QGraphicsScene *p_scene)
 {
     m_scene = p_scene;
@@ -62,10 +80,10 @@ QGraphicsScene *GameEngine::getScene() const
 
 void GameEngine::startNewGame()
 {
-    ball = new Ball(100,400);
-    player = new Racket(100,525);
+    player = new Racket(100,520);
     mtx = new CubeMatrix;
-    mtx->fillLevel(lvl_1);
+    ball = new Ball(100,400);
+    mtx->fillLevel(lvl_2);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
 }

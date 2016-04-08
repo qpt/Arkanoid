@@ -10,17 +10,34 @@
 */
 
 #include "ball.h"
+#include <QDebug>
 
-Ball::Ball(int posx, int posy)
+Ball::Ball(int posx, int posy, QGraphicsItem *parent):QObject(),QGraphicsPixmapItem(parent)
 {
     QPixmap pix(":/img/ball.png");
-    setBrush(pix);
-    setRect(0,0,pix.width(),pix.height());
+    pix = pix.scaled(pix.width()*2,pix.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
+    setPixmap(pix);
     setPos(posx,posy);
     GameEngine::instance()->getScene()->addItem(this);
+    timer = new QTimer;
+    connect(timer,SIGNAL(timeout()),this,SLOT(move()));
+    timer->start(5);
 }
 
 Ball::~Ball()
 {
     GameEngine::instance()->getScene()->removeItem(this);
+}
+
+void Ball::move()
+{
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for(int i = 0, n = colliding_items.size(); i < n; ++i )
+    {
+       if(typeid(*(colliding_items[i])) == typeid(Cube))
+       {
+            qDebug(" y0000 ");
+       }
+    }
+    setPos(x(),y()-1);
 }

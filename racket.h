@@ -12,15 +12,15 @@
 #ifndef RACKET_H
 #define RACKET_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include "game.h"
 
-class Racket: public QObject, public QGraphicsRectItem {
+class Racket: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
 public:
-    Racket(int posx, int posy);
+    Racket(int posx, int posy,QGraphicsItem* parent=0);
     ~Racket();
 
     void keyPressEvent(QKeyEvent * event);

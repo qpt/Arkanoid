@@ -28,6 +28,17 @@ class Ball;
 class Racket;
 class CubeMatrix;
 
+class Pixmap : public QObject, public QGraphicsPixmapItem,public QVariant {
+    Q_OBJECT
+    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
+    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
+    Q_PROPERTY(qreal rotation READ rotation WRITE setRotation)
+public:
+    Pixmap(const QPixmap &pix): QObject(), QGraphicsPixmapItem(pix) {
+        setCacheMode(DeviceCoordinateCache);
+    }
+};
+
 class GameEngine {
 public:
     void setScene(QGraphicsScene* );

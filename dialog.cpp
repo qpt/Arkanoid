@@ -14,7 +14,7 @@
 
 
 Dialog::Dialog(QWidget *parent):QDialog(parent),m_ui(new Ui::Dialog) {
-    QPixmap q(":/img/Arkanoid_arcadeflyer.png");
+    QPixmap q(":/img/Arkanoid_arcadeflyer.jpg");
     m_pic = new QLabel(this);
     m_info = new QLabel("Created with Qt Framework\n\n (c) David Hovhannisyan");
     m_pic->setPixmap(q);

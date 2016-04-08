@@ -18,6 +18,7 @@ const int c_wstart = 6*2;
 const int c_hstart = 60+7*2+40;
 
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QStack>
 #include "game.h"
 
@@ -72,7 +73,7 @@ private:
 class CubeMatrix {
 public:
     CubeMatrix():cubes(new QStack<Cube*>){}
-    void fillLevel(int M[15][13],int n=15,int m=13);
+    void fillLevel(unsigned char M[15][13],int n=15,int m=13);
     ~CubeMatrix();
 private:
     QStack<Cube*> *cubes;

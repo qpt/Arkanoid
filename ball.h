@@ -12,15 +12,22 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
+#include <QList>
+#include <QTimer>
+#include <typeinfo>
 #include "game.h"
 
-class Ball: public QObject, public QGraphicsRectItem {
+class Ball: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
 public:
-    Ball(int posx, int posy);
+    Ball(int posx, int posy,QGraphicsItem* parent = 0);
     ~Ball();
+private:
+    QTimer *timer;
+public slots:
+    void move();
 };
 
 #endif // BALL_H

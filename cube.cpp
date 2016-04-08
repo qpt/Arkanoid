@@ -26,7 +26,7 @@ Cube::~Cube()
 }
 
 
-void CubeMatrix::fillLevel(int M[15][13],int n,int m)
+void CubeMatrix::fillLevel(unsigned char M[15][13],int n,int m)
 {
     for(int i = 0; i < n; ++i)
     {

@@ -11,11 +11,11 @@
 
 #include "racket.h"
 
-Racket::Racket(int posx, int posy)
+Racket::Racket(int posx, int posy, QGraphicsItem* parent):QObject(),QGraphicsPixmapItem(parent)
 {
     QPixmap pix(":/img/racket.png");
-    setBrush(pix);
-    setRect(0,0,pix.width(),pix.height());
+    pix = pix.scaled(pix.width()*2,pix.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
+    setPixmap(pix);
     setPos(posx,posy);
     GameEngine::instance()->getScene()->addItem(this);
 }
@@ -28,15 +28,9 @@ Racket::~Racket()
 void Racket::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Left)
-        if(pos().x() > 10)
+        if(pos().x() > 12)
            setPos(x()-10,y());
     if(event->key() == Qt::Key_Right)
-        if(pos().x() < 440-10-rect().width())
-             setPos(x()+10,y());
-    if(event->key() == Qt::Key_Space)
-    {
-        //Bullet * bullet = new Bullet();
-        //bullet->setPos(x(),y());
-        //scene()->addItem(bullet);
-    }
+        if(pos().x() < 425 - 15)
+            setPos(x()+10,y());
 }
