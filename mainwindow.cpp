@@ -33,24 +33,25 @@ MainWindow::MainWindow(QWidget *parent) :
     blft = blft.scaled(blft.width()*2,blft.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
     btop = btop.scaled(btop.width()*2,btop.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
     brght = brght.scaled(brght.width()*2,brght.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
-    Pixmap *sc_bgPix = new Pixmap(bgPix);
-    Pixmap *sc_blft = new Pixmap(blft);
-    Pixmap *sc_btop = new Pixmap(btop);
-    Pixmap *sc_brght = new Pixmap(brght);
-    sc_btop->setPos(0 , gc_matrixheight);
-    sc_blft->setPos(0 , btop.height() + gc_matrixheight);
-    sc_brght->setPos(btop.width() - brght.width() , btop.height() + gc_matrixheight);
-    sc_bgPix->setPos(blft.width() , btop.height() + gc_matrixheight);
 
-    setFixedSize(btop.width() + brght.width()+5,gc_matrixheight + btop.height() + bgPix.height()+25);
-    m_scene = new QGraphicsScene(0,0,btop.width() + brght.width(),gc_matrixheight + btop.height() + bgPix.height());
+    setFixedSize(btop.width() + brght.width()+5,SCOREHEIGHT + btop.height() + bgPix.height()+25);
+    m_scene = new QGraphicsScene(0,0,btop.width() + brght.width(),SCOREHEIGHT + btop.height() + bgPix.height());
     ui->graphicsView->setScene(m_scene);
     GameEngine::instance()->setScene(m_scene);
 
-    m_scene->addItem(sc_blft);
-    m_scene->addItem(sc_btop);
-    m_scene->addItem(sc_brght);
+    Pixmap *sc_bgPix = new Pixmap(bgPix);
+    sc_bgPix->setPos(blft.width() , btop.height() + SCOREHEIGHT);
     m_scene->addItem(sc_bgPix);
+
+    Border *sc_blft = new Border(blft);
+    Border *sc_btop = new Border(btop);
+    Border *sc_brght = new Border(brght);
+    sc_btop->setPos(0 , SCOREHEIGHT);
+    sc_blft->setPos(0 , btop.height() + SCOREHEIGHT);
+    sc_brght->setPos(btop.width() - brght.width() , btop.height() + SCOREHEIGHT);
+
+    GameEngine::instance()->initSounds();
+    GameEngine::instance()->initData(sc_blft,sc_btop,sc_brght);
 
     ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     ui->graphicsView->setBackgroundBrush(*new QBrush(Qt::black));

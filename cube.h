@@ -12,14 +12,14 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-const int cubesWidth = 32;
-const int cubesHeight = 16;
-const int c_wstart = 6*2;
-const int c_hstart = 60+7*2+40;
-
 #include <QGraphicsRectItem>
 #include <QStack>
 #include "game.h"
+
+#define CUBESWIDTH 32
+#define CUBESHEIGHT 16
+#define WSTART 6*2
+#define HSTART SCOREHEIGHT + 7*2 + 40
 
 class Cube: public QObject, public QGraphicsRectItem {
     Q_OBJECT
@@ -35,37 +35,37 @@ protected:
 
 class RedCube: public Cube {
 public:
-    RedCube(int posx, int posy, int w=cubesWidth, int h=cubesHeight):Cube(true,Qt::red,4,posx,posy,w,h) {}
+    RedCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::red,4,posx,posy,w,h) {}
 private:
 };
 
 class YellowCube: public Cube {
 public:
-    YellowCube(int posx, int posy, int w=cubesWidth, int h=cubesHeight):Cube(true,Qt::yellow,3,posx,posy,w,h) {}
+    YellowCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::yellow,3,posx,posy,w,h) {}
 private:
 };
 
 class BlueCube: public Cube {
 public:
-    BlueCube(int posx, int posy, int w=cubesWidth, int h=cubesHeight):Cube(true,Qt::blue,2,posx,posy,w,h) {}
+    BlueCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::blue,2,posx,posy,w,h) {}
 private:
 };
 
 class CyanCube: public Cube {
 public:
-    CyanCube(int posx, int posy, int w=cubesWidth, int h=cubesHeight):Cube(true,Qt::cyan,1,posx,posy,w,h) {}
+    CyanCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::cyan,1,posx,posy,w,h) {}
 private:
 };
 
 class GreenCube: public Cube {
 public:
-    GreenCube(int posx, int posy, int w=cubesWidth, int h=cubesHeight):Cube(true,Qt::green,0,posx,posy,w,h) {}
+    GreenCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::green,0,posx,posy,w,h) {}
 private:
 };
 
 class UnbreakableCube: public Cube {
 public:
-    UnbreakableCube(int posx, int posy, int w=cubesWidth, int h=cubesHeight):Cube(false,Qt::gray,0,posx,posy,w,h) {}
+    UnbreakableCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(false,Qt::gray,0,posx,posy,w,h) {}
 private:
 };
 

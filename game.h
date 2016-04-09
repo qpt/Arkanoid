@@ -13,18 +13,25 @@
 #define GAME_H
 
 #include <QGraphicsScene>
+#include <QSound>
 #include <QGraphicsPixmapItem>
 
 #include "cube.h"
 #include "ball.h"
 #include "racket.h"
+#include "border.h"
 #include "lives.h"
 #include "score.h"
 
+#define SCOREHEIGHT 60
+#define LOOSELINE 550
+
 enum blocks { empty, green, cyan, blue, yellow, red, ub };
+enum sounds { hitbrk, hitubrk, hitracket, lose};
 
 class Ball;
 class Racket;
+class Border;
 class CubeMatrix;
 
 class Pixmap : public QObject, public QGraphicsPixmapItem {
@@ -42,6 +49,9 @@ class GameEngine {
 public:
     void setScene(QGraphicsScene* );
     QGraphicsScene* getScene() const;
+    void initSounds();
+    void initData(Border *,Border *,Border *);
+    void playSound(sounds);
     void startNewGame();
     void cleanup();
 
@@ -55,9 +65,11 @@ public:
     }
 private:
     QGraphicsScene *m_scene;
-    Ball *ball;
-    Racket *player;
-    CubeMatrix *mtx;
+    Ball *m_ball;
+    Racket *m_player;
+    CubeMatrix *m_mtx;
+    Border *m_lft,*m_top,*m_rght;
+    QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose;
 
     static GameEngine *s_instance;
     GameEngine(){}

@@ -37,22 +37,22 @@ void CubeMatrix::fillLevel(unsigned char M[15][13],int n,int m)
             case empty:
                 break;
             case green:
-                cubes->push(new GreenCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                cubes->push(new GreenCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
                 break;
             case cyan:
-                cubes->push(new CyanCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                cubes->push(new CyanCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
                 break;
             case blue:
-                cubes->push(new BlueCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                cubes->push(new BlueCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
                 break;
             case yellow:
-                cubes->push(new YellowCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                cubes->push(new YellowCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
                 break;
             case red:
-                cubes->push(new RedCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                cubes->push(new RedCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
                 break;
             case ub:
-                cubes->push(new UnbreakableCube(c_wstart+j*cubesWidth,c_hstart+cubesHeight*i));
+                cubes->push(new UnbreakableCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
                 break;
             }
         }

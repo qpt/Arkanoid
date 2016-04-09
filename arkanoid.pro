@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     ball.cpp \
     racket.cpp \
     score.cpp \
-    lives.cpp
+    lives.cpp \
+    border.cpp
 
 HEADERS  += mainwindow.h \
     dialog.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     ball.h \
     racket.h \
     score.h \
-    lives.h
+    lives.h \
+    border.h
 
 FORMS    += mainwindow.ui \
     dialog.ui

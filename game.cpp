@@ -13,7 +13,7 @@
 
 GameEngine* GameEngine::s_instance;
 
-unsigned char lvl_1[15][13] = {
+unsigned char g_lvl_1[15][13] = {
     {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub     },
     {   green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green  },
     {   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan,   cyan    },
@@ -32,7 +32,7 @@ unsigned char lvl_1[15][13] = {
 };
 
 
-unsigned char lvl_2[15][13] = {
+unsigned char g_lvl_2[15][13] = {
     {   empty,  empty,  empty,  ub,     ub,     empty,  empty,  empty,  ub,     ub,     empty,  empty,  empty   },
     {   empty,  empty,  ub,     yellow, yellow, ub,     empty,  ub,     red,    red,    ub,     empty,  empty   },
     {   empty,  ub,     yellow, yellow, yellow, yellow, ub,     red,    red,    red,    red,    ub,     empty   },
@@ -50,7 +50,7 @@ unsigned char lvl_2[15][13] = {
     {   empty,  empty,  empty,  empty,  empty,  empty,  cyan,  empty,   empty,  empty,  empty,  empty,  empty   }
 };
 
-unsigned char lvl_3[15][13] = {
+unsigned char g_lvl_3[15][13] = {
     {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
     {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
     {   empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty   },
@@ -78,23 +78,57 @@ QGraphicsScene *GameEngine::getScene() const
     return m_scene;
 }
 
+void GameEngine::initSounds()
+{
+    m_brkcube = new QSound(":/sounds/hit_cube.wav");
+    m_ubrkcube = new QSound(":/sounds/hit_unbreakable.wav");
+    m_racket = new QSound(":/sounds/hit_racket.wav");
+    m_lose = new QSound(":/sounds/lose.wav");
+}
+
+void GameEngine::initData(Border *p_lft, Border *p_top, Border *p_rght)
+{
+    m_lft = p_lft;
+    m_top = p_top;
+    m_rght = p_rght;
+}
+
+void GameEngine::playSound(sounds p)
+{
+    switch (p)
+    {
+    case hitbrk:
+        m_brkcube->play();
+        break;
+    case hitubrk:
+        m_ubrkcube->play();
+        break;
+    case hitracket:
+        m_racket->play();
+        break;
+    case lose:
+        m_lose->play();
+        break;
+    }
+}
+
 void GameEngine::startNewGame()
 {
-    player = new Racket(100,520);
-    mtx = new CubeMatrix;
-    ball = new Ball(100,400);
-    mtx->fillLevel(lvl_1);
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
+    m_player = new Racket(100,520);
+    m_mtx = new CubeMatrix;
+    m_ball = new Ball(100,400,qreal(10.0),qreal(300*M_PI/180));
+    m_mtx->fillLevel(g_lvl_2);
+    m_player->setFlag(QGraphicsItem::ItemIsFocusable);
+    m_player->setFocus();
 }
 
 void GameEngine::cleanup()
 {
-    delete ball;
-    delete player;
-    delete mtx;
+    delete m_ball;
+    delete m_player;
+    delete m_mtx;
 
-    ball = NULL;
-    player = NULL;
-    mtx = NULL;
+    m_ball = NULL;
+    m_player = NULL;
+    m_mtx = NULL;
 }

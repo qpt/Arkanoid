@@ -12,7 +12,10 @@
 #ifndef BALL_H
 #define BALL_H
 
+# define M_PI   3.14159265358979323846
+
 #include <QGraphicsPixmapItem>
+#include <QtMath>
 #include <QList>
 #include <QTimer>
 #include <typeinfo>
@@ -22,10 +25,13 @@ class Ball: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
 public:
-    Ball(int posx, int posy,QGraphicsItem* parent = 0);
+    Ball(int posx, int posy,qreal v,qreal phi,QGraphicsItem* parent = 0);
+    void changeDirection(qreal);
+    void changeSpeed(qreal);
     ~Ball();
 private:
     QTimer *m_timer;
+    qreal m_velocity,m_angle;
 public slots:
     void move();
 };

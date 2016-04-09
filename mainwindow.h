@@ -20,8 +20,6 @@
 #include "dialog.h"
 #include "game.h"
 
-const int gc_matrixheight = 60;
-
 namespace Ui {
 class MainWindow;
 }

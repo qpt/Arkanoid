@@ -13,7 +13,8 @@
 #include "ui_dialog.h"
 
 
-Dialog::Dialog(QWidget *parent):QDialog(parent),m_ui(new Ui::Dialog) {
+Dialog::Dialog(QWidget *parent):QDialog(parent),m_ui(new Ui::Dialog)
+{
     QPixmap q(":/img/Arkanoid_arcadeflyer.jpg");
     m_pic = new QLabel(this);
     m_info = new QLabel("Created with Qt Framework\n\n (c) David Hovhannisyan");
@@ -39,6 +40,7 @@ Dialog::Dialog(QWidget *parent):QDialog(parent),m_ui(new Ui::Dialog) {
     setWindowIcon(ico);
 }
 
-Dialog::~Dialog() {
+Dialog::~Dialog()
+{
     delete m_ui;
 }
