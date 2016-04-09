@@ -43,7 +43,7 @@ void Racket::keyReleaseEvent(QKeyEvent *event)
         is_moving_right = false;
 }
 
-void Racket::timerEvent(QTimerEvent *event)
+void Racket::timerEvent(QTimerEvent *)
 {
     if (is_moving_left)
         if(pos().x() > 12)

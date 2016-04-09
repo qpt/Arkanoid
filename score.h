@@ -12,11 +12,16 @@
 #ifndef SCORE_H
 #define SCORE_H
 
+#include "game.h"
 
-class Score
-{
+class Score: public QGraphicsTextItem {
 public:
-    Score();
+    Score(QGraphicsItem* parent=0);
+    ~Score();
+    void increase();
+    void updateScore();
+    int getScore();
+private:
+    int m_score;
 };
-
 #endif // SCORE_H

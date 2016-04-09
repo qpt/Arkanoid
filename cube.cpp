@@ -81,8 +81,10 @@ CubeMatrix::~CubeMatrix()
 void BreakableCube::actingOnCollision()
 {
     GameEngine::instance()->playSound(hitbrk);
+    GameEngine::instance()->getScore()->increase();
     if(!m_health)
     {
+        GameEngine::instance()->getScore()->updateScore();
         removeFromScene();
     }
     --m_health;

@@ -18,7 +18,6 @@
 #include <QtMath>
 #include <QList>
 #include <QTimer>
-#include <typeinfo>
 #include "game.h"
 
 class Ball: public QObject, public QGraphicsPixmapItem {

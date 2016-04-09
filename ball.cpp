@@ -51,6 +51,8 @@ void Ball::changeSpeed(qreal v)
 
 Ball::~Ball()
 {
+    delete m_timer;
+    m_timer = NULL;
     GameEngine::instance()->getScene()->removeItem(this);
 }
 
@@ -59,7 +61,16 @@ void Ball::move()
     setPos(x()+ m_velocity * qCos(m_angle),y() + m_velocity * qSin(m_angle));
     if(y() > LOOSELINE)
     {
-        GameEngine::instance()->playSound(lose);
+        if(GameEngine::instance()->getLives()->getLives() == 1)
+        {
+            GameEngine::instance()->playSound(gameover);
+            GameEngine::instance()->showGameOver();
+        }
+        else
+        {
+            GameEngine::instance()->playSound(lose);
+        }
+        GameEngine::instance()->getLives()->decrease();
         GameEngine::instance()->remPlayer();
     }
     QList<QGraphicsItem *> colliding_items = collidingItems();
@@ -88,7 +99,7 @@ void Ball::move()
             {
                 GameEngine::instance()->playSound(hitracket);
                 setY(r_absy - b_h);
-                changeDirection(-M_PI/2-2.5*(r_absx + r_w/2 - b_absx - b_w/2)/r_w);
+                changeDirection(-M_PI/2 - 2.5 * (r_absx + r_w/2 - b_absx - b_w/2) / r_w );
             }
             break;
         }

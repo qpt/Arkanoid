@@ -17,7 +17,7 @@ Dialog::Dialog(QWidget *parent):QDialog(parent),m_ui(new Ui::Dialog)
 {
     QPixmap q(":/img/Arkanoid_arcadeflyer.jpg");
     m_pic = new QLabel(this);
-    m_info = new QLabel("Created with Qt Framework\n\n (c) David Hovhannisyan");
+    m_info = new QLabel("Created with Qt Framework\n\nLicense: GPL v3\n\n (c) David Hovhannisyan");
     m_pic->setPixmap(q);
     m_oKay = new QPushButton("Ok");
     m_hlay0 = new QHBoxLayout;

@@ -96,6 +96,16 @@ QGraphicsScene *GameEngine::getScene() const
     return m_scene;
 }
 
+Score *GameEngine::getScore() const
+{
+    return m_score;
+}
+
+Lives *GameEngine::getLives() const
+{
+    return m_lives;
+}
+
 void GameEngine::initSounds()
 {
     m_brkcube = new QSound(":/sounds/hit_cube.wav");
@@ -103,6 +113,7 @@ void GameEngine::initSounds()
     m_racket = new QSound(":/sounds/hit_racket.wav");
     m_border = new QSound(":/sounds/hit_border.wav");
     m_lose = new QSound(":/sounds/lose.wav");
+    m_gameover = new QSound(":/sounds/game_over.wav");
 }
 
 void GameEngine::initData(Border *p_lft, Border *p_top, Border *p_rght)
@@ -110,6 +121,8 @@ void GameEngine::initData(Border *p_lft, Border *p_top, Border *p_rght)
     m_lft = p_lft;
     m_top = p_top;
     m_rght = p_rght;
+    m_score = new Score;
+    m_lives = new Lives;
 }
 
 void GameEngine::playSound(sounds p)
@@ -131,17 +144,23 @@ void GameEngine::playSound(sounds p)
     case lose:
         m_lose->play();
         break;
+    case gameover:
+        m_gameover->play();
+        break;
     }
 }
 
 void GameEngine::startNewGame()
 {
-    m_player = new Racket(100,520);
-    m_mtx = new CubeMatrix;
-    m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/3));
-    m_mtx->fillLevel(g_lvl_3);
-    m_player->setFlag(QGraphicsItem::ItemIsFocusable);
-    m_player->setFocus();
+    if(m_lives->getLives())
+    {
+        m_player = new Racket(100,520);
+        m_mtx = new CubeMatrix;
+        m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/3));
+        m_mtx->fillLevel(g_lvl_3);
+        m_player->setFlag(QGraphicsItem::ItemIsFocusable);
+        m_player->setFocus();
+    }
 }
 
 void GameEngine::cleanup()
@@ -161,4 +180,19 @@ void GameEngine::remPlayer()
     delete m_ball;
     m_player = NULL;
     m_ball = NULL;
+}
+
+void GameEngine::showGameWon()
+{
+
+}
+
+void GameEngine::showGameOver()
+{
+    m_gameovertxt = new QGraphicsTextItem;
+    m_gameovertxt->setPlainText(QString("GAME OVER :("));
+    m_gameovertxt->setDefaultTextColor(Qt::red);
+    m_gameovertxt->setFont(QFont("Courier New",48));
+    m_gameovertxt->setPos(70,400);
+    m_scene->addItem(m_gameovertxt);
 }

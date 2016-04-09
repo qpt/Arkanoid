@@ -11,8 +11,34 @@
 
 #include "score.h"
 
-Score::Score()
+Score::Score(QGraphicsItem* parent): QGraphicsTextItem(parent)
 {
-
+    m_score = 0;
+    setPlainText(QString::number(m_score));
+    setDefaultTextColor(Qt::white);
+    setFont(QFont("terminal",16));
+    setPos(50,30);
+    GameEngine::instance()->getScene()->addItem(this);
 }
 
+void Score::increase()
+{
+    m_score += 100;
+}
+
+void Score::updateScore()
+{
+    setPlainText(QString::number(m_score));
+    setDefaultTextColor(Qt::white);
+    setFont(QFont("terminal",16));
+}
+
+int Score::getScore()
+{
+    return m_score;
+}
+
+Score::~Score()
+{
+    GameEngine::instance()->getScene()->removeItem(this);
+}
