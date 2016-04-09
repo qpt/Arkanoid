@@ -24,6 +24,13 @@ public:
     ~Racket();
 
     void keyPressEvent(QKeyEvent * event);
+    void keyReleaseEvent(QKeyEvent * event);
+
+protected:
+    void timerEvent(QTimerEvent *event);
+
+private:
+    bool is_moving_left, is_moving_right;
 };
 
 #endif // RACKET_H

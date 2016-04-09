@@ -12,7 +12,7 @@
 #include "cube.h"
 
 Cube::Cube(bool brk,Qt::GlobalColor clr,int hlth,int posx, int posy, int w, int h):
-    m_breakability(brk), m_health(hlth)
+    m_breakability(brk), m_health(hlth),deleted(false)
 {
     setRect(0,0,w,h);
     setPos(posx,posy);
@@ -20,9 +20,18 @@ Cube::Cube(bool brk,Qt::GlobalColor clr,int hlth,int posx, int posy, int w, int 
     GameEngine::instance()->getScene()->addItem(this);
 }
 
+void Cube::removeFromScene()
+{
+    if(!deleted)
+    {
+        GameEngine::instance()->getScene()->removeItem(this);
+        deleted = true;
+    }
+}
+
 Cube::~Cube()
 {
-    GameEngine::instance()->getScene()->removeItem(this);
+    removeFromScene();
 }
 
 
@@ -68,3 +77,34 @@ CubeMatrix::~CubeMatrix()
     delete cubes;
     cubes = NULL;
 }
+
+void RedCube::actingOnCollision()
+{
+
+}
+
+void YellowCube::actingOnCollision()
+{
+
+}
+
+void BlueCube::actingOnCollision()
+{
+
+}
+
+void CyanCube::actingOnCollision()
+{
+
+}
+
+void GreenCube::actingOnCollision()
+{
+
+}
+
+void UnbreakableCube::actingOnCollision()
+{
+
+}
+

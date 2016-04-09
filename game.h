@@ -55,6 +55,7 @@ public:
     void playSound(sounds);
     void startNewGame();
     void cleanup();
+    void remPlayer();
 
     static GameEngine *instance()
     {

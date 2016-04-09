@@ -116,8 +116,8 @@ void GameEngine::startNewGame()
 {
     m_player = new Racket(100,520);
     m_mtx = new CubeMatrix;
-    m_ball = new Ball(100,400,qreal(1.0),qreal(10*M_PI/180));
-    m_mtx->fillLevel(g_lvl_2);
+    m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/2));
+    m_mtx->fillLevel(g_lvl_3);
     m_player->setFlag(QGraphicsItem::ItemIsFocusable);
     m_player->setFocus();
 }
@@ -131,4 +131,12 @@ void GameEngine::cleanup()
     m_ball = NULL;
     m_player = NULL;
     m_mtx = NULL;
+}
+
+void GameEngine::remPlayer()
+{
+    delete m_player;
+    delete m_ball;
+    m_player = NULL;
+    m_ball = NULL;
 }

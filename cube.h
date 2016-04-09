@@ -26,46 +26,55 @@ class Cube: public QObject, public QGraphicsRectItem {
     Q_INTERFACES(QGraphicsItem)
 public:
     Cube(bool brk,Qt::GlobalColor clr,int hlth,int posx, int posy, int w, int h);
-    ~Cube();
+    void removeFromScene();
+    virtual void actingOnCollision()=0;
+    virtual ~Cube();
 protected:
     QRect *m_rect;
     bool m_breakability;
     int m_health;
+    bool deleted;
 };
 
 class RedCube: public Cube {
 public:
     RedCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::red,4,posx,posy,w,h) {}
+    void actingOnCollision();
 private:
 };
 
 class YellowCube: public Cube {
 public:
     YellowCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::yellow,3,posx,posy,w,h) {}
+    void actingOnCollision();
 private:
 };
 
 class BlueCube: public Cube {
 public:
     BlueCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::blue,2,posx,posy,w,h) {}
+    void actingOnCollision();
 private:
 };
 
 class CyanCube: public Cube {
 public:
     CyanCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::cyan,1,posx,posy,w,h) {}
+    void actingOnCollision();
 private:
 };
 
 class GreenCube: public Cube {
 public:
     GreenCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::green,0,posx,posy,w,h) {}
+    void actingOnCollision();
 private:
 };
 
 class UnbreakableCube: public Cube {
 public:
     UnbreakableCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(false,Qt::gray,0,posx,posy,w,h) {}
+    void actingOnCollision();
 private:
 };
 
