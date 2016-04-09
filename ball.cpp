@@ -24,7 +24,7 @@ Ball::Ball(int posx, int posy,qreal v,qreal phi, QGraphicsItem *parent):
     GameEngine::instance()->getScene()->addItem(this);
     m_timer = new QTimer;
     connect(m_timer,SIGNAL(timeout()),this,SLOT(move()));
-    m_timer->start(20);
+    m_timer->start(1);
 }
 
 void Ball::changeDirection(qreal phi)
@@ -58,6 +58,7 @@ void Ball::move()
             GameEngine::instance()->playSound(hitbrk);
             changeDirection(m_angle - M_PI);
             delete colliding_items[i];
+            colliding_items[i] = NULL;
             break;
         }
         if(typeid(*(colliding_items[i])) == typeid(YellowCube))
@@ -65,6 +66,7 @@ void Ball::move()
             GameEngine::instance()->playSound(hitbrk);
             changeDirection(m_angle - M_PI);
             delete colliding_items[i];
+            colliding_items[i] = NULL;
             break;
         }
         if(typeid(*(colliding_items[i])) == typeid(BlueCube))
@@ -72,6 +74,7 @@ void Ball::move()
             GameEngine::instance()->playSound(hitbrk);
             changeDirection(m_angle - M_PI);
             delete colliding_items[i];
+            colliding_items[i] = NULL;
             break;
         }
         if(typeid(*(colliding_items[i])) == typeid(CyanCube))
@@ -79,6 +82,7 @@ void Ball::move()
             GameEngine::instance()->playSound(hitbrk);
             changeDirection(m_angle - M_PI);
             delete colliding_items[i];
+            colliding_items[i] = NULL;
             break;
         }
         if(typeid(*(colliding_items[i])) == typeid(GreenCube))
@@ -86,6 +90,7 @@ void Ball::move()
             GameEngine::instance()->playSound(hitbrk);
             changeDirection(m_angle - M_PI);
             delete colliding_items[i];
+            colliding_items[i] = NULL;
             break;
         }
         if(typeid(*(colliding_items[i])) == typeid(UnbreakableCube))
@@ -98,6 +103,23 @@ void Ball::move()
         {
             GameEngine::instance()->playSound(hitracket);
             changeDirection(m_angle + M_PI);
+            break;
+        }
+        if(typeid(*(colliding_items[i])) == typeid(Border))
+        {
+            Border *curr = static_cast<Border *>(colliding_items[i]);
+            switch(curr->getType())
+            {
+            case borderleft:
+                changeDirection(- m_angle - M_PI);
+                break;
+            case bordertop:
+                changeDirection(2*M_PI - m_angle);
+                break;
+            case borderright:
+                changeDirection(M_PI - m_angle);
+                break;
+            }
             break;
         }
     }

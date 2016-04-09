@@ -12,7 +12,7 @@
 #ifndef BALL_H
 #define BALL_H
 
-# define M_PI   3.14159265358979323846
+#define M_PI    3.14159265358979323846
 
 #include <QGraphicsPixmapItem>
 #include <QtMath>

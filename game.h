@@ -28,6 +28,7 @@
 
 enum blocks { empty, green, cyan, blue, yellow, red, ub };
 enum sounds { hitbrk, hitubrk, hitracket, lose};
+enum border { borderleft, bordertop, borderright };
 
 class Ball;
 class Racket;

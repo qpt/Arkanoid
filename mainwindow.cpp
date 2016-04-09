@@ -43,9 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     sc_bgPix->setPos(blft.width() , btop.height() + SCOREHEIGHT);
     m_scene->addItem(sc_bgPix);
 
-    Border *sc_blft = new Border(blft);
-    Border *sc_btop = new Border(btop);
-    Border *sc_brght = new Border(brght);
+    Border *sc_blft = new Border(blft,borderleft);
+    Border *sc_btop = new Border(btop,bordertop);
+    Border *sc_brght = new Border(brght,borderright);
     sc_btop->setPos(0 , SCOREHEIGHT);
     sc_blft->setPos(0 , btop.height() + SCOREHEIGHT);
     sc_brght->setPos(btop.width() - brght.width() , btop.height() + SCOREHEIGHT);
