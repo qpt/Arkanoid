@@ -184,15 +184,20 @@ void GameEngine::remPlayer()
 
 void GameEngine::showGameWon()
 {
-
+    m_gametxt = new QGraphicsTextItem;
+    m_gametxt->setPlainText(QString("GAME WON :)"));
+    m_gametxt->setDefaultTextColor(Qt::yellow);
+    m_gametxt->setFont(QFont("Courier New",48));
+    m_gametxt->setPos(10,400);
+    m_scene->addItem(m_gametxt);
 }
 
 void GameEngine::showGameOver()
 {
-    m_gameovertxt = new QGraphicsTextItem;
-    m_gameovertxt->setPlainText(QString("GAME OVER :("));
-    m_gameovertxt->setDefaultTextColor(Qt::red);
-    m_gameovertxt->setFont(QFont("Courier New",48));
-    m_gameovertxt->setPos(70,400);
-    m_scene->addItem(m_gameovertxt);
+    m_gametxt = new QGraphicsTextItem;
+    m_gametxt->setPlainText(QString("GAME OVER:("));
+    m_gametxt->setDefaultTextColor(Qt::red);
+    m_gametxt->setFont(QFont("Courier New",48));
+    m_gametxt->setPos(10,400);
+    m_scene->addItem(m_gametxt);
 }

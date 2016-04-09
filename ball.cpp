@@ -27,7 +27,6 @@
 Ball::Ball(int posx, int posy,qreal v,qreal phi, QGraphicsItem *parent):
     QObject(),QGraphicsPixmapItem(parent)
 {
-    m_velocity = v;
     m_angle = phi;
     QPixmap pix(":/img/ball.png");
     pix = pix.scaled(pix.width()*2,pix.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
@@ -44,11 +43,6 @@ void Ball::changeDirection(qreal phi)
     m_angle = phi;
 }
 
-void Ball::changeSpeed(qreal v)
-{
-    m_velocity = v;
-}
-
 Ball::~Ball()
 {
     delete m_timer;
@@ -58,7 +52,7 @@ Ball::~Ball()
 
 void Ball::move()
 {
-    setPos(x()+ m_velocity * qCos(m_angle),y() + m_velocity * qSin(m_angle));
+    setPos(x() + qCos(m_angle),y() + qSin(m_angle));
     if(y() > LOOSELINE)
     {
         if(GameEngine::instance()->getLives()->getLives() == 1)

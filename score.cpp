@@ -14,7 +14,7 @@
 Score::Score(QGraphicsItem* parent): QGraphicsTextItem(parent)
 {
     m_score = 0;
-    setPlainText(QString::number(m_score));
+    setPlainText(QString::number(m_score) + QString("  SCORE"));
     setDefaultTextColor(Qt::white);
     setFont(QFont("terminal",16));
     setPos(50,30);
@@ -28,7 +28,7 @@ void Score::increase()
 
 void Score::updateScore()
 {
-    setPlainText(QString::number(m_score));
+    setPlainText(QString::number(m_score) + QString("  SCORE"));
     setDefaultTextColor(Qt::white);
     setFont(QFont("terminal",16));
 }

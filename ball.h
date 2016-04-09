@@ -26,11 +26,10 @@ class Ball: public QObject, public QGraphicsPixmapItem {
 public:
     Ball(int posx, int posy,qreal v,qreal phi,QGraphicsItem* parent = 0);
     void changeDirection(qreal);
-    void changeSpeed(qreal);
     ~Ball();
 private:
     QTimer *m_timer;
-    qreal m_velocity,m_angle;
+    qreal m_angle;
 public slots:
     void move();
 };

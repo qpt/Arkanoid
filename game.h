@@ -80,7 +80,7 @@ private:
     Score *m_score;
     Lives *m_lives;
     QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose,*m_border,*m_gameover;
-    QGraphicsTextItem *m_gameovertxt,*m_gamewontxt;
+    QGraphicsTextItem *m_gametxt;
 
     static GameEngine *s_instance;
     GameEngine(){}
