@@ -67,6 +67,7 @@ unsigned char g_lvl_3[15][13] = {
     {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
     {   empty,  empty,  empty,  empty,  green,  green,  empty,  green,  green,  empty,  empty,  empty,  empty   }
 };
+
 unsigned char g_lvl_4[15][13] = {
     {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
     {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
@@ -137,8 +138,8 @@ void GameEngine::startNewGame()
 {
     m_player = new Racket(100,520);
     m_mtx = new CubeMatrix;
-    m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/2+1));
-    m_mtx->fillLevel(g_lvl_4);
+    m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/3));
+    m_mtx->fillLevel(g_lvl_3);
     m_player->setFlag(QGraphicsItem::ItemIsFocusable);
     m_player->setFocus();
 }

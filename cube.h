@@ -37,7 +37,8 @@ protected:
 
 class UnbreakableCube: public Cube {
 public:
-    UnbreakableCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(Qt::gray,posx,posy,w,h) {}
+    UnbreakableCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT)
+        :Cube(Qt::gray,posx,posy,w,h) {}
     void actingOnCollision();
     ~UnbreakableCube(){}
 };

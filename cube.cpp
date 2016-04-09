@@ -88,7 +88,6 @@ void BreakableCube::actingOnCollision()
     --m_health;
 }
 
-
 void UnbreakableCube::actingOnCollision()
 {
     GameEngine::instance()->playSound(hitubrk);

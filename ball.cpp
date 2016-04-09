@@ -10,7 +10,19 @@
 */
 
 #include "ball.h"
-#include <QDebug>
+
+#define r_absx racket->pos().x()
+#define r_absy racket->pos().y()
+#define r_w racket->sceneBoundingRect().width()
+#define r_h racket->sceneBoundingRect().height()
+#define c_absx block->pos().x()
+#define c_absy block->pos().y()
+#define c_w block->sceneBoundingRect().width()
+#define c_h block->sceneBoundingRect().height()
+#define b_absx pos().x()
+#define b_absy pos().y()
+#define b_w sceneBoundingRect().width()
+#define b_h sceneBoundingRect().height()
 
 Ball::Ball(int posx, int posy,qreal v,qreal phi, QGraphicsItem *parent):
     QObject(),QGraphicsPixmapItem(parent)
@@ -24,7 +36,7 @@ Ball::Ball(int posx, int posy,qreal v,qreal phi, QGraphicsItem *parent):
     GameEngine::instance()->getScene()->addItem(this);
     m_timer = new QTimer;
     connect(m_timer,SIGNAL(timeout()),this,SLOT(move()));
-    m_timer->start(10);
+    m_timer->start(5);
 }
 
 void Ball::changeDirection(qreal phi)
@@ -53,18 +65,6 @@ void Ball::move()
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for(int i = 0, n = colliding_items.size(); i < n; ++i )
     {
-        if(Cube* curr = dynamic_cast<Cube*>(colliding_items[i]))
-        {
-            changeDirection(m_angle - M_PI);
-            curr->actingOnCollision();
-            break;
-        }
-        if(Racket* curr = dynamic_cast<Racket*>(colliding_items[i]))
-        {
-            GameEngine::instance()->playSound(hitracket);
-            changeDirection(-m_angle + 2*M_PI);
-            break;
-        }
         if(Border* curr = dynamic_cast<Border*>(colliding_items[i]))
         {
             GameEngine::instance()->playSound(hitborder);
@@ -80,6 +80,23 @@ void Ball::move()
                 changeDirection(M_PI - m_angle);
                 break;
             }
+            break;
+        }
+        if(Racket* racket = dynamic_cast<Racket*>(colliding_items[i]))
+        {
+            if(r_absy > b_absy)
+            {
+                GameEngine::instance()->playSound(hitracket);
+                setY(r_absy - b_h);
+                changeDirection(-M_PI/2-2.5*(r_absx + r_w/2 - b_absx - b_w/2)/r_w);
+            }
+            break;
+        }
+        if(Cube* block = dynamic_cast<Cube*>(colliding_items[i]))
+        {
+
+            changeDirection(m_angle - M_PI);
+            block->actingOnCollision();
             break;
         }
     }
