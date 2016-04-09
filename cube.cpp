@@ -11,8 +11,8 @@
 
 #include "cube.h"
 
-Cube::Cube(bool brk,Qt::GlobalColor clr,int hlth,int posx, int posy, int w, int h):
-    m_breakability(brk), m_health(hlth),deleted(false)
+Cube::Cube(Qt::GlobalColor clr,int posx, int posy, int w, int h):
+    deleted(false)
 {
     setRect(0,0,w,h);
     setPos(posx,posy);
@@ -78,33 +78,18 @@ CubeMatrix::~CubeMatrix()
     cubes = NULL;
 }
 
-void RedCube::actingOnCollision()
+void BreakableCube::actingOnCollision()
 {
-
+    GameEngine::instance()->playSound(hitbrk);
+    if(!m_health)
+    {
+        removeFromScene();
+    }
+    --m_health;
 }
 
-void YellowCube::actingOnCollision()
-{
-
-}
-
-void BlueCube::actingOnCollision()
-{
-
-}
-
-void CyanCube::actingOnCollision()
-{
-
-}
-
-void GreenCube::actingOnCollision()
-{
-
-}
 
 void UnbreakableCube::actingOnCollision()
 {
-
+    GameEngine::instance()->playSound(hitubrk);
 }
-

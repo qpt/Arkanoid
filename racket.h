@@ -27,7 +27,7 @@ public:
     void keyReleaseEvent(QKeyEvent * event);
 
 protected:
-    void timerEvent(QTimerEvent *event);
+    void timerEvent(QTimerEvent *event=0);
 
 private:
     bool is_moving_left, is_moving_right;

@@ -25,57 +25,61 @@ class Cube: public QObject, public QGraphicsRectItem {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
 public:
-    Cube(bool brk,Qt::GlobalColor clr,int hlth,int posx, int posy, int w, int h);
-    void removeFromScene();
+    Cube(Qt::GlobalColor clr,int posx, int posy, int w, int h);
     virtual void actingOnCollision()=0;
     virtual ~Cube();
+
 protected:
-    QRect *m_rect;
-    bool m_breakability;
-    int m_health;
     bool deleted;
-};
 
-class RedCube: public Cube {
-public:
-    RedCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::red,4,posx,posy,w,h) {}
-    void actingOnCollision();
-private:
-};
-
-class YellowCube: public Cube {
-public:
-    YellowCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::yellow,3,posx,posy,w,h) {}
-    void actingOnCollision();
-private:
-};
-
-class BlueCube: public Cube {
-public:
-    BlueCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::blue,2,posx,posy,w,h) {}
-    void actingOnCollision();
-private:
-};
-
-class CyanCube: public Cube {
-public:
-    CyanCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::cyan,1,posx,posy,w,h) {}
-    void actingOnCollision();
-private:
-};
-
-class GreenCube: public Cube {
-public:
-    GreenCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(true,Qt::green,0,posx,posy,w,h) {}
-    void actingOnCollision();
-private:
+    void removeFromScene();
 };
 
 class UnbreakableCube: public Cube {
 public:
-    UnbreakableCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(false,Qt::gray,0,posx,posy,w,h) {}
+    UnbreakableCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):Cube(Qt::gray,posx,posy,w,h) {}
     void actingOnCollision();
-private:
+    ~UnbreakableCube(){}
+};
+
+class BreakableCube: public Cube {
+public:
+    BreakableCube(Qt::GlobalColor clr,int hlth,int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT)
+        :Cube(clr,posx,posy,w,h),m_health(hlth) {}
+    void actingOnCollision();
+    ~BreakableCube(){}
+protected:
+    int m_health;
+};
+
+class RedCube: public BreakableCube {
+public:
+    RedCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):BreakableCube(Qt::red,4,posx,posy,w,h) {}
+    ~RedCube(){}
+};
+
+class YellowCube: public BreakableCube {
+public:
+    YellowCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):BreakableCube(Qt::yellow,3,posx,posy,w,h) {}
+    ~YellowCube(){}
+};
+
+class BlueCube: public BreakableCube {
+public:
+    BlueCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):BreakableCube(Qt::blue,2,posx,posy,w,h) {}
+    ~BlueCube(){}
+};
+
+class CyanCube: public BreakableCube {
+public:
+    CyanCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):BreakableCube(Qt::cyan,1,posx,posy,w,h) {}
+    ~CyanCube(){}
+};
+
+class GreenCube: public BreakableCube {
+public:
+    GreenCube(int posx, int posy, int w=CUBESWIDTH, int h=CUBESHEIGHT):BreakableCube(Qt::green,0,posx,posy,w,h) {}
+    ~GreenCube(){}
 };
 
 class CubeMatrix {

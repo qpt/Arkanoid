@@ -27,7 +27,7 @@
 #define LOOSELINE 550
 
 enum blocks { empty, green, cyan, blue, yellow, red, ub };
-enum sounds { hitbrk, hitubrk, hitracket, lose};
+enum sounds { hitbrk, hitubrk, hitracket, hitborder, lose};
 enum border { borderleft, bordertop, borderright };
 
 class Ball;
@@ -71,7 +71,7 @@ private:
     Racket *m_player;
     CubeMatrix *m_mtx;
     Border *m_lft,*m_top,*m_rght;
-    QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose;
+    QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose,*m_border;
 
     static GameEngine *s_instance;
     GameEngine(){}

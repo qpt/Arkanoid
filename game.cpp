@@ -67,6 +67,23 @@ unsigned char g_lvl_3[15][13] = {
     {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
     {   empty,  empty,  empty,  empty,  green,  green,  empty,  green,  green,  empty,  empty,  empty,  empty   }
 };
+unsigned char g_lvl_4[15][13] = {
+    {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
+    {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  empty,  empty   },
+    {   empty,  empty,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  empty,  empty   },
+    {   empty,  empty,  green,  green,  red,    green,  green,  green,  red,    green,  green,  empty,  empty   },
+    {   empty,  empty,  green,  green,  red,    green,  green,  green,  red,    green,  green,  empty,  empty   },
+    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
+    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
+    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
+    {   empty,  green,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  green,  empty   },
+    {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
+    {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
+    {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub     }
+};
 
 void GameEngine::setScene(QGraphicsScene *p_scene)
 {
@@ -83,6 +100,7 @@ void GameEngine::initSounds()
     m_brkcube = new QSound(":/sounds/hit_cube.wav");
     m_ubrkcube = new QSound(":/sounds/hit_unbreakable.wav");
     m_racket = new QSound(":/sounds/hit_racket.wav");
+    m_border = new QSound(":/sounds/hit_border.wav");
     m_lose = new QSound(":/sounds/lose.wav");
 }
 
@@ -106,6 +124,9 @@ void GameEngine::playSound(sounds p)
     case hitracket:
         m_racket->play();
         break;
+    case hitborder:
+        m_border->play();
+        break;
     case lose:
         m_lose->play();
         break;
@@ -116,8 +137,8 @@ void GameEngine::startNewGame()
 {
     m_player = new Racket(100,520);
     m_mtx = new CubeMatrix;
-    m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/2));
-    m_mtx->fillLevel(g_lvl_3);
+    m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/2+1));
+    m_mtx->fillLevel(g_lvl_4);
     m_player->setFlag(QGraphicsItem::ItemIsFocusable);
     m_player->setFocus();
 }

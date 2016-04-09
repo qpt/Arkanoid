@@ -55,9 +55,8 @@ void Ball::move()
     {
         if(Cube* curr = dynamic_cast<Cube*>(colliding_items[i]))
         {
-            GameEngine::instance()->playSound(hitbrk);
             changeDirection(m_angle - M_PI);
-            curr->removeFromScene();
+            curr->actingOnCollision();
             break;
         }
         if(Racket* curr = dynamic_cast<Racket*>(colliding_items[i]))
@@ -68,6 +67,7 @@ void Ball::move()
         }
         if(Border* curr = dynamic_cast<Border*>(colliding_items[i]))
         {
+            GameEngine::instance()->playSound(hitborder);
             switch(curr->getType())
             {
             case borderleft:
