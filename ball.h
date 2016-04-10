@@ -24,8 +24,9 @@ class Ball: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
 public:
-    Ball(int posx, int posy,qreal v,qreal phi,QGraphicsItem* parent = 0);
+    Ball(int posx, int posy,qreal phi,QGraphicsItem* parent = 0);
     void changeDirection(qreal);
+    void changeSpeed(qreal);
     ~Ball();
 private:
     QTimer *m_timer;

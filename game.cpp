@@ -68,28 +68,24 @@ unsigned char g_lvl_3[15][13] = {
     {   empty,  empty,  empty,  empty,  green,  green,  empty,  green,  green,  empty,  empty,  empty,  empty   }
 };
 
+//  TEST LEVEL
 unsigned char g_lvl_4[15][13] = {
-    {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
-    {   empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty   },
-    {   empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty   },
-    {   empty,  empty,  empty,  empty,  yellow, empty,  empty,  empty,  yellow, empty,  empty,  empty,  empty   },
-    {   empty,  empty,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  empty,  empty   },
-    {   empty,  empty,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  empty,  empty   },
-    {   empty,  empty,  green,  green,  red,    green,  green,  green,  red,    green,  green,  empty,  empty   },
-    {   empty,  empty,  green,  green,  red,    green,  green,  green,  red,    green,  green,  empty,  empty   },
-    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
-    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
-    {   empty,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  green,  empty   },
-    {   empty,  green,  empty,  green,  green,  green,  green,  green,  green,  green,  empty,  green,  empty   },
-    {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
-    {   empty,  green,  empty,  green,  empty,  empty,  empty,  empty,  empty,  green,  empty,  green,  empty   },
-    {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub     }
+    {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub   }
 };
-
-void GameEngine::setScene(QGraphicsScene *p_scene)
-{
-    m_scene = p_scene;
-}
 
 QGraphicsScene *GameEngine::getScene() const
 {
@@ -106,6 +102,16 @@ Lives *GameEngine::getLives() const
     return m_lives;
 }
 
+bool GameEngine::lvlPassed() const
+{
+    return true;
+}
+
+void GameEngine::setScene(QGraphicsScene *p_scene)
+{
+    m_scene = p_scene;
+}
+
 void GameEngine::initSounds()
 {
     m_brkcube = new QSound(":/sounds/hit_cube.wav");
@@ -114,6 +120,7 @@ void GameEngine::initSounds()
     m_border = new QSound(":/sounds/hit_border.wav");
     m_lose = new QSound(":/sounds/lose.wav");
     m_gameover = new QSound(":/sounds/game_over.wav");
+    m_gamewon = new QSound(":/sounds/next_lvl.wav");
 }
 
 void GameEngine::initData(Border *p_lft, Border *p_top, Border *p_rght)
@@ -147,6 +154,9 @@ void GameEngine::playSound(sounds p)
     case gameover:
         m_gameover->play();
         break;
+    case gamewon:
+        m_gamewon->play();
+        break;
     }
 }
 
@@ -156,8 +166,21 @@ void GameEngine::startNewGame()
     {
         m_player = new Racket(100,520);
         m_mtx = new CubeMatrix;
-        m_ball = new Ball(100,400,qreal(1.0),qreal(M_PI/3));
-        m_mtx->fillLevel(g_lvl_3);
+        m_ball = new Ball(100,400,qreal(-M_PI/6));
+        /*
+        m_ball = new Ball(150,300,qreal(0.0));
+        m_ball = new Ball(150,300,qreal(M_PI/6));
+        m_ball = new Ball(150,300,qreal(M_PI/3));
+        m_ball = new Ball(150,300,qreal(M_PI/2));
+        m_ball = new Ball(150,300,qreal(4*M_PI/6));
+        m_ball = new Ball(150,300,qreal(5*M_PI/6));
+        m_ball = new Ball(150,300,qreal(M_PI));
+        m_ball = new Ball(150,300,qreal(7*M_PI/6));
+        m_ball = new Ball(150,300,qreal(4*M_PI/3));
+        m_ball = new Ball(150,300,qreal(3*M_PI/2));
+        m_ball = new Ball(150,300,qreal(5*M_PI/3));
+        */
+        m_mtx->fillLevel(g_lvl_1);
         m_player->setFlag(QGraphicsItem::ItemIsFocusable);
         m_player->setFocus();
     }

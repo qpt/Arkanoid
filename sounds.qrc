@@ -6,5 +6,6 @@
         <file>sounds/lose.wav</file>
         <file>sounds/hit_border.wav</file>
         <file>sounds/game_over.wav</file>
+        <file>sounds/next_lvl.wav</file>
     </qresource>
 </RCC>

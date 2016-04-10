@@ -34,6 +34,22 @@ Cube::~Cube()
     removeFromScene();
 }
 
+void BreakableCube::actingOnCollision()
+{
+    GameEngine::instance()->playSound(hitbrk);
+    GameEngine::instance()->getScore()->increase();
+    if(!m_health)
+    {
+        GameEngine::instance()->getScore()->updateScore();
+        removeFromScene();
+    }
+    --m_health;
+}
+
+void UnbreakableCube::actingOnCollision()
+{
+    GameEngine::instance()->playSound(hitubrk);
+}
 
 void CubeMatrix::fillLevel(unsigned char M[15][13],int n,int m)
 {
@@ -76,21 +92,4 @@ CubeMatrix::~CubeMatrix()
     }
     delete cubes;
     cubes = NULL;
-}
-
-void BreakableCube::actingOnCollision()
-{
-    GameEngine::instance()->playSound(hitbrk);
-    GameEngine::instance()->getScore()->increase();
-    if(!m_health)
-    {
-        GameEngine::instance()->getScore()->updateScore();
-        removeFromScene();
-    }
-    --m_health;
-}
-
-void UnbreakableCube::actingOnCollision()
-{
-    GameEngine::instance()->playSound(hitubrk);
 }

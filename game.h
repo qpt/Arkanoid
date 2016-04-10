@@ -27,8 +27,8 @@
 #define LOOSELINE 550
 
 enum blocks { empty, green, cyan, blue, yellow, red, ub };
-enum sounds { hitbrk, hitubrk, hitracket, hitborder, lose, gameover};
-enum border { borderleft, bordertop, borderright };
+enum sounds { hitbrk, hitubrk, hitracket, hitborder, lose, gameover, gamewon };
+enum border { borderleftright, bordertop };
 
 class Ball;
 class Score;
@@ -50,10 +50,13 @@ public:
 
 class GameEngine {
 public:
-    void setScene(QGraphicsScene* );
+
     QGraphicsScene* getScene() const;
     Score *getScore() const;
     Lives *getLives() const;
+    bool lvlPassed() const;
+
+    void setScene(QGraphicsScene* );
     void initSounds();
     void initData(Border *,Border *,Border *);
     void playSound(sounds);
@@ -79,7 +82,7 @@ private:
     Border *m_lft,*m_top,*m_rght;
     Score *m_score;
     Lives *m_lives;
-    QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose,*m_border,*m_gameover;
+    QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose,*m_border,*m_gameover,*m_gamewon;
     QGraphicsTextItem *m_gametxt;
 
     static GameEngine *s_instance;

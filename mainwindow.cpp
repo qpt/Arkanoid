@@ -29,10 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap blft(":/img/border_left.png");
     QPixmap btop(":/img/border_top.png");
     QPixmap brght(":/img/border_right.png");
-    bgPix = bgPix.scaled(bgPix.width()*2,bgPix.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
-    blft = blft.scaled(blft.width()*2,blft.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
-    btop = btop.scaled(btop.width()*2,btop.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
-    brght = brght.scaled(brght.width()*2,brght.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
+    bgPix = bgPix.scaled(bgPix.width()*2,bgPix.height()*2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    blft = blft.scaled(blft.width()*2,blft.height()*2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    btop = btop.scaled(btop.width()*2,btop.height()*2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    brght = brght.scaled(brght.width()*2,brght.height()*2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     setFixedSize(btop.width() + brght.width()+5,SCOREHEIGHT + btop.height() + bgPix.height()+25);
     m_scene = new QGraphicsScene(0,0,btop.width() + brght.width(),SCOREHEIGHT + btop.height() + bgPix.height());
@@ -43,9 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     sc_bgPix->setPos(blft.width() , btop.height() + SCOREHEIGHT);
     m_scene->addItem(sc_bgPix);
 
-    Border *sc_blft = new Border(blft,borderleft);
+    Border *sc_blft = new Border(blft,borderleftright);
     Border *sc_btop = new Border(btop,bordertop);
-    Border *sc_brght = new Border(brght,borderright);
+    Border *sc_brght = new Border(brght,borderleftright);
     sc_btop->setPos(0 , SCOREHEIGHT);
     sc_blft->setPos(0 , btop.height() + SCOREHEIGHT);
     sc_brght->setPos(btop.width() - brght.width() , btop.height() + SCOREHEIGHT);
@@ -77,9 +77,11 @@ void MainWindow::startNewGame()
 {
     static int s_newgame = 0;
     if(s_newgame)
+    {
         GameEngine::instance()->cleanup();
+        ++s_newgame;
+    }
     GameEngine::instance()->startNewGame();
-    ++s_newgame;
 }
 
 void MainWindow::openAbout()

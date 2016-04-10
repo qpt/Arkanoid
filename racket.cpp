@@ -15,7 +15,7 @@ Racket::Racket(int posx, int posy, QGraphicsItem* parent):QObject(),QGraphicsPix
     is_moving_left(false),is_moving_right(false)
 {
     QPixmap pix(":/img/racket.png");
-    pix = pix.scaled(pix.width()*2,pix.height()*2, Qt::KeepAspectRatio, Qt::FastTransformation);
+    pix = pix.scaled(pix.width()*2,pix.height()*2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     setPixmap(pix);
     setPos(posx,posy);
     GameEngine::instance()->getScene()->addItem(this);
