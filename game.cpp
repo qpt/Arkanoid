@@ -136,9 +136,9 @@ void GameEngine::initData(Border *p_lft, Border *p_top, Border *p_rght)
     m_score = new Score;
     m_lives = new Lives;
     m_gamequeue = new QQueue<unsigned char (*)[15][13]>;
-    m_gamequeue->push_front(&g_lvl_1);
-    m_gamequeue->push_front(&g_lvl_2);
     m_gamequeue->push_front(&g_lvl_3);
+    m_gamequeue->push_front(&g_lvl_2);
+    m_gamequeue->push_front(&g_lvl_1);
     m_gamequeue->push_front(&g_lvl_4);
 }
 
@@ -183,7 +183,7 @@ void GameEngine::startNewGame()
         {
             m_player = new Racket(100,520);
             m_mtx = new CubeMatrix;
-            m_ball = new Ball(100,400,qreal(2.5),qreal(-M_PI/3));
+            m_ball = new Ball(100,400,qreal(2),qreal(-M_PI/3));
             m_mtx->fillLevel(*m_gamequeue->back());
             m_player->setFlag(QGraphicsItem::ItemIsFocusable);
             m_player->setFocus();
