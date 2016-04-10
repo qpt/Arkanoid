@@ -36,14 +36,15 @@ Cube::~Cube()
 
 void BreakableCube::actingOnCollision()
 {
+    --m_health;
+    m_score+=100;
     GameEngine::instance()->playSound(hitbrk);
-    GameEngine::instance()->getScore()->increase();
     if(!m_health)
     {
-        GameEngine::instance()->getScore()->updateScore();
+        GameEngine::instance()->getScore()->increase(m_score);
+        GameEngine::instance()->getMatrix()->decrement();
         removeFromScene();
     }
-    --m_health;
 }
 
 void UnbreakableCube::actingOnCollision()
@@ -63,18 +64,23 @@ void CubeMatrix::fillLevel(unsigned char M[15][13],int n,int m)
                 break;
             case green:
                 cubes->push(new GreenCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
+                ++m_counting;
                 break;
             case cyan:
                 cubes->push(new CyanCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
+                ++m_counting;
                 break;
             case blue:
                 cubes->push(new BlueCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
+                ++m_counting;
                 break;
             case yellow:
                 cubes->push(new YellowCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
+                ++m_counting;
                 break;
             case red:
                 cubes->push(new RedCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
+                ++m_counting;
                 break;
             case ub:
                 cubes->push(new UnbreakableCube(WSTART+j*CUBESWIDTH,HSTART+CUBESHEIGHT*i));
@@ -82,6 +88,16 @@ void CubeMatrix::fillLevel(unsigned char M[15][13],int n,int m)
             }
         }
     }
+}
+
+void CubeMatrix::decrement()
+{
+    --m_counting;
+}
+
+bool CubeMatrix::isEmpty()
+{
+    return m_counting == 0;
 }
 
 CubeMatrix::~CubeMatrix()

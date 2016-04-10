@@ -24,7 +24,7 @@
 #define b_w sceneBoundingRect().width()
 #define b_h sceneBoundingRect().height()
 
-Ball::Ball(int posx, int posy,qreal phi, QGraphicsItem *parent):
+Ball::Ball(int posx, int posy,qreal v,qreal phi, QGraphicsItem *parent):
     QObject(),QGraphicsPixmapItem(parent)
 {
     m_angle = phi;
@@ -35,7 +35,7 @@ Ball::Ball(int posx, int posy,qreal phi, QGraphicsItem *parent):
     GameEngine::instance()->getScene()->addItem(this);
     m_timer = new QTimer;
     connect(m_timer,SIGNAL(timeout()),this,SLOT(move()));
-    m_timer->start(5);
+    m_timer->start(10.0/v);
 }
 
 void Ball::changeDirection(qreal phi)
@@ -45,7 +45,7 @@ void Ball::changeDirection(qreal phi)
 
 void Ball::changeSpeed(qreal v)
 {
-    m_timer->setInterval(20.0/v);
+    m_timer->setInterval(10.0/v);
 }
 
 Ball::~Ball()
@@ -145,6 +145,13 @@ void Ball::move()
                 changeDirection(2*M_PI - m_angle);
             }
             block->actingOnCollision();
+            if(GameEngine::instance()->getMatrix()->isEmpty())
+            {
+                GameEngine::instance()->playSound(gamewon);
+                GameEngine::instance()->nextLvl();
+                GameEngine::instance()->cleanup();
+                GameEngine::instance()->startNewGame();
+            }
             break;
         }
     }

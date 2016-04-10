@@ -76,6 +76,7 @@ unsigned char g_lvl_4[15][13] = {
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
+    {   ub,     empty,  empty,  empty,  empty,  empty,  ub,  empty,  empty,  empty,  empty,  empty,  ub   },
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
@@ -83,13 +84,17 @@ unsigned char g_lvl_4[15][13] = {
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
     {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
-    {   ub,     empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  empty,  ub   },
-    {   ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub,     ub   }
+    {   ub,     ub,     ub,     ub,     ub,     yellow,     ub,     ub,     ub,     ub,     ub,     ub,     ub   }
 };
 
 QGraphicsScene *GameEngine::getScene() const
 {
     return m_scene;
+}
+
+CubeMatrix *GameEngine::getMatrix() const
+{
+    return m_mtx;
 }
 
 Score *GameEngine::getScore() const
@@ -130,6 +135,11 @@ void GameEngine::initData(Border *p_lft, Border *p_top, Border *p_rght)
     m_rght = p_rght;
     m_score = new Score;
     m_lives = new Lives;
+    m_gamequeue = new QQueue<unsigned char (*)[15][13]>;
+    m_gamequeue->push_front(&g_lvl_4);
+    m_gamequeue->push_front(&g_lvl_2);
+    m_gamequeue->push_front(&g_lvl_3);
+    m_gamequeue->push_front(&g_lvl_1);
 }
 
 void GameEngine::playSound(sounds p)
@@ -164,26 +174,26 @@ void GameEngine::startNewGame()
 {
     if(m_lives->getLives())
     {
-        m_player = new Racket(100,520);
-        m_mtx = new CubeMatrix;
-        m_ball = new Ball(100,400,qreal(-M_PI/6));
-        /*
-        m_ball = new Ball(150,300,qreal(0.0));
-        m_ball = new Ball(150,300,qreal(M_PI/6));
-        m_ball = new Ball(150,300,qreal(M_PI/3));
-        m_ball = new Ball(150,300,qreal(M_PI/2));
-        m_ball = new Ball(150,300,qreal(4*M_PI/6));
-        m_ball = new Ball(150,300,qreal(5*M_PI/6));
-        m_ball = new Ball(150,300,qreal(M_PI));
-        m_ball = new Ball(150,300,qreal(7*M_PI/6));
-        m_ball = new Ball(150,300,qreal(4*M_PI/3));
-        m_ball = new Ball(150,300,qreal(3*M_PI/2));
-        m_ball = new Ball(150,300,qreal(5*M_PI/3));
-        */
-        m_mtx->fillLevel(g_lvl_1);
-        m_player->setFlag(QGraphicsItem::ItemIsFocusable);
-        m_player->setFocus();
+        if(m_gamequeue->empty())
+        {
+            cleanup();
+            showGameWon();
+        }
+        else
+        {
+            m_player = new Racket(100,520);
+            m_mtx = new CubeMatrix;
+            m_ball = new Ball(100,400,qreal(2.5),qreal(-M_PI/3));
+            m_mtx->fillLevel(*m_gamequeue->back());
+            m_player->setFlag(QGraphicsItem::ItemIsFocusable);
+            m_player->setFocus();
+        }
     }
+}
+
+void GameEngine::nextLvl()
+{
+    m_gamequeue->pop_back();
 }
 
 void GameEngine::cleanup()

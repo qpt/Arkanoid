@@ -14,6 +14,7 @@
 
 #include <QGraphicsScene>
 #include <QSound>
+#include <QQueue>
 #include <QGraphicsPixmapItem>
 
 #include "cube.h"
@@ -52,8 +53,9 @@ class GameEngine {
 public:
 
     QGraphicsScene* getScene() const;
-    Score *getScore() const;
-    Lives *getLives() const;
+    CubeMatrix* getMatrix() const;
+    Score* getScore() const;
+    Lives* getLives() const;
     bool lvlPassed() const;
 
     void setScene(QGraphicsScene* );
@@ -61,6 +63,7 @@ public:
     void initData(Border *,Border *,Border *);
     void playSound(sounds);
     void startNewGame();
+    void nextLvl();
     void cleanup();
     void remPlayer();
     void showGameWon();
@@ -82,6 +85,7 @@ private:
     Border *m_lft,*m_top,*m_rght;
     Score *m_score;
     Lives *m_lives;
+    QQueue<unsigned char (*)[15][13]> *m_gamequeue;
     QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose,*m_border,*m_gameover,*m_gamewon;
     QGraphicsTextItem *m_gametxt;
 

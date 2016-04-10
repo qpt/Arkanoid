@@ -21,16 +21,17 @@ Score::Score(QGraphicsItem* parent): QGraphicsTextItem(parent)
     GameEngine::instance()->getScene()->addItem(this);
 }
 
-void Score::increase()
+void Score::increase(int x)
 {
-    m_score += 100;
+    m_score+=x;
+    setPlainText(QString::number(m_score) + QString("  SCORE"));
+    setDefaultTextColor(Qt::white);
+    setFont(QFont("terminal",16));
 }
 
 void Score::updateScore()
 {
-    setPlainText(QString::number(m_score) + QString("  SCORE"));
-    setDefaultTextColor(Qt::white);
-    setFont(QFont("terminal",16));
+
 }
 
 int Score::getScore()
