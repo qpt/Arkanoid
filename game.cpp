@@ -136,10 +136,10 @@ void GameEngine::initData(Border *p_lft, Border *p_top, Border *p_rght)
     m_score = new Score;
     m_lives = new Lives;
     m_gamequeue = new QQueue<unsigned char (*)[15][13]>;
-    m_gamequeue->push_front(&g_lvl_4);
+    m_gamequeue->push_front(&g_lvl_1);
     m_gamequeue->push_front(&g_lvl_2);
     m_gamequeue->push_front(&g_lvl_3);
-    m_gamequeue->push_front(&g_lvl_1);
+    m_gamequeue->push_front(&g_lvl_4);
 }
 
 void GameEngine::playSound(sounds p)
