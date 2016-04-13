@@ -50,7 +50,6 @@ MainWindow::MainWindow(QWidget *parent) :
     sc_blft->setPos(0 , btop.height() + SCOREHEIGHT);
     sc_brght->setPos(btop.width() - brght.width() , btop.height() + SCOREHEIGHT);
 
-    GameEngine::instance()->initSounds();
     GameEngine::instance()->initData(sc_blft,sc_btop,sc_brght);
 
     ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
@@ -75,12 +74,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::startNewGame()
 {
-    static int s_newgame = 0;
-    if(s_newgame)
-    {
-        GameEngine::instance()->cleanup();
-        ++s_newgame;
-    }
     GameEngine::instance()->startNewGame();
 }
 

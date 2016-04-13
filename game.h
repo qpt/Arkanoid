@@ -57,14 +57,15 @@ public:
     Score* getScore() const;
     Lives* getLives() const;
     bool lvlPassed() const;
+    bool gameLost() const;
 
     void setScene(QGraphicsScene* );
-    void initSounds();
     void initData(Border *,Border *,Border *);
     void playSound(sounds);
     void startNewGame();
     void nextLvl();
     void cleanup();
+    void setGameLost(bool);
     void remPlayer();
     void showGameWon();
     void showGameOver();
@@ -88,6 +89,7 @@ private:
     QQueue<unsigned char (*)[15][13]> *m_gamequeue;
     QSound *m_brkcube,*m_ubrkcube,*m_racket,*m_lose,*m_border,*m_gameover,*m_gamewon;
     QGraphicsTextItem *m_gametxt;
+    bool m_gamelose;
 
     static GameEngine *s_instance;
     GameEngine(){}

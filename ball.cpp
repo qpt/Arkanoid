@@ -63,14 +63,17 @@ void Ball::move()
         if(GameEngine::instance()->getLives()->getLives() == 1)
         {
             GameEngine::instance()->playSound(gameover);
+            GameEngine::instance()->cleanup();
             GameEngine::instance()->showGameOver();
         }
         else
         {
             GameEngine::instance()->playSound(lose);
+            GameEngine::instance()->setGameLost(true);
         }
         GameEngine::instance()->getLives()->decrease();
         GameEngine::instance()->remPlayer();
+        return;
     }
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for(int i = 0, n = colliding_items.size(); i < n; ++i )

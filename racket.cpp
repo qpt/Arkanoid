@@ -19,7 +19,7 @@ Racket::Racket(int posx, int posy, QGraphicsItem* parent):QObject(),QGraphicsPix
     setPixmap(pix);
     setPos(posx,posy);
     GameEngine::instance()->getScene()->addItem(this);
-    startTimer(5);
+    startTimer(3);
 }
 
 Racket::~Racket()
